@@ -1,12 +1,25 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.udghosh2.MainActivity" >
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never"/>
+        android:id="@+id/side_navigation_menu_item1"
+        android:icon="@drawable/ic_launcher"
+        android:title="Home"/>
+    <item
+        android:id="@+id/side_navigation_menu_item2"
+        android:icon="@drawable/ic_launcher"
+        android:title="Udghosh"/>
+    <item
+        android:id="@+id/side_navigation_menu_item3"
+        android:icon="@drawable/ic_launcher"
+        android:title="Cataratc"/>
+    <item
+        android:id="@+id/side_navigation_menu_item4"
+        android:icon="@drawable/ic_launcher"
+        android:title="Detorrite"/>
+    <item
+        android:id="@+id/side_navigation_menu_item5"
+        android:icon="@drawable/ic_launcher"
+        android:title="Eagleeye"/>
 
 </menu>
