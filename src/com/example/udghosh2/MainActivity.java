@@ -15,6 +15,7 @@ import com.actionbarsherlock.view.MenuInflater;
 
 import android.R.integer;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 
@@ -90,12 +91,15 @@ public class MainActivity extends SherlockActivity implements ISideNavigationCal
 
             case R.id.side_navigation_menu_item4:
             	Toast.makeText(getApplicationContext(), "4", Toast.LENGTH_SHORT).show();
-                //invokeActivity(getString(R.string.title4), R.drawable.ic_android4);
+                
                 break;
 
             case R.id.side_navigation_menu_item5:
             	Toast.makeText(getApplicationContext(), "5", Toast.LENGTH_SHORT).show();
                 //invokeActivity(getString(R.string.title5), R.drawable.ic_android5);
+            	Intent in=new Intent(getApplicationContext(), PathGoogleMapActivity.class);
+            	startActivity(in);
+            	
                 break;
 
             default:
