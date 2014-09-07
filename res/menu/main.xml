@@ -2,24 +2,80 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/side_navigation_menu_item1"
-        android:icon="@drawable/ic_launcher"
+        android:id="@+id/item1"
+        android:icon="@drawable/home"
         android:title="Home"/>
     <item
-        android:id="@+id/side_navigation_menu_item2"
-        android:icon="@drawable/ic_launcher"
-        android:title="Udghosh"/>
+        android:id="@+id/item2"
+        android:icon="@drawable/schedule"
+        android:title="Schedule"/>
     <item
-        android:id="@+id/side_navigation_menu_item3"
-        android:icon="@drawable/ic_launcher"
-        android:title="Cataratc"/>
+        android:id="@+id/item3"
+        android:icon="@drawable/weather"
+        android:title="Weather"/>
     <item
-        android:id="@+id/side_navigation_menu_item4"
-        android:icon="@drawable/ic_launcher"
-        android:title="Detorrite"/>
+        android:id="@+id/item4"
+        android:icon="@drawable/merchandise"
+        android:title="Merchandise"/>
     <item
-        android:id="@+id/side_navigation_menu_item5"
+        android:id="@+id/item5"
         android:icon="@drawable/ic_launcher"
-        android:title="Eagleeye"/>
-
+        android:title="FACILITIES"/>
+   
+    <item android:id="@+id/item6"
+          android:icon="@drawable/workshops"
+          android:title="Workshops"
+        />
+    
+    <item android:id="@+id/item7"
+          android:icon="@drawable/food"
+          android:title="Food Courts"
+        />    
+        
+       <item android:id="@+id/item8"
+          android:icon="@drawable/ic_launcher"
+          android:title="MAPS"
+        />
+       
+       <item android:id="@+id/item9"
+          android:icon="@drawable/map"
+          android:title="Navigator Maps"
+        />
+       
+       <item android:id="@+id/item10"
+          android:icon="@drawable/ic_launcher"
+          android:title="NEWS &amp; MEDIA"
+        />
+       
+       <item android:id="@+id/item11"
+          android:icon="@drawable/news"
+          android:title="News"
+        />
+         
+       
+       <item android:id="@+id/item11"
+          android:icon="@drawable/ic_launcher"
+          android:title="Photos"
+        />
+       
+         <item android:id="@+id/item13"
+          android:icon="@drawable/ic_launcher"
+          android:title="Contacts"
+        /> 
+       
+         <item android:id="@+id/item13"
+          android:icon="@drawable/ic_launcher"
+          android:title="Sponsors"
+        /> 
+        
+          <item android:id="@+id/item14"
+          android:icon="@drawable/ic_launcher"
+          android:title="SETTINGS"
+        />
+         
+          <item android:id="@+id/item15"
+          android:icon="@drawable/settings"
+          android:title="Settings"
+        />
+        
 </menu>

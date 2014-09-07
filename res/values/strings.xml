@@ -10,6 +10,147 @@
    
     <string name="title_activity_path_google_map">PathGoogleMapActivity</string>
     
+ <string name="aa">NEWS &amp; MEDIA</string>
+    
+    
+    <string name="descr_image">Image</string>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <string-array 
+        name="coordinators_sync">
+ 
+ 
+<item>Ayush Gupta</item>        
+<item>Tarun Chauhan</item>              
+<item>Ravi Choudhary</item>   
+<item>Saket Kanodia</item>            
+<item>Anurag Lohia</item>   
+ <item>Anjali Vishwakarma</item>        
+<item>Maitrey Verma</item>              
+<item>Sandip Bisui</item>   
+<item>Avijit Jaiswal</item>            
+<item>Sandeep Charan</item>          
+<item>Vipul Garg</item>        
+<item>Jithesh Kumar</item>              
+<item>Shrey Agarwal</item>   
+<item>Aman Inder Singh</item>            
+<item>Siddhant Mathur</item>   
++  
+        
+    </string-array>
+    
+ <string-array 
+        name="phone_sync">
+   <item>+91-9044120569</item>
+   <item>+91-9005516946</item>
+   
+   
+   <item>+91-8960420098</item>
+   <item>+91-8765696051</item>
+   <item>+91-9005902270</item>
+   
+   
+   
+   
+   <item>+91-7755057970</item>
+   <item>+91-9670726618</item>
+   <item>+91-8765696124</item>
+      
+      
+      
+      
+      <item>+91-7388966155</item>
+   <item>+91-8765696223</item>
+   <item>+91-9651673322</item>
+   
+   
+   
+        
+      <item>+91-8953425441</item>
+   <item>+91-8765696423</item>
+   <item>+91-9005532107</item>
+
+<item >+91-9005459838</item>
+  </string-array>
+
+ 
+  <string-array 
+        name="email_sync">
+   <item>Festival Coordinator</item>
+   <item>Head Hospitality</item>
+   <item>Head Hospitality</item>
+   <item>Head Marketing</item>
+   <item>Head Marketing</item>
+    
+   
+   <item>Head Events</item>
+   <item>Head Events</item>
+  
+   
+   <item>Head Competitions</item>
+   <item>Head Public Relations</item>
+   <item>Head Media &#38; Publicity</item>
+   
+   
+   <item>Head Show Management</item>
+   <item>Head Creatives</item>
+   <item>Head Finance</item>
+   
+     <item>Head Security</item>
+   <item>Head Security</item>
+   <item>Head Finance</item>
+   
+  
+  </string-array>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+ 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

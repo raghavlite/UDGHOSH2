@@ -1,20 +1,34 @@
 package com.example.udghosh2;
 
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.FutureTask;
 
 import org.json.JSONObject;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Shader.TileMode;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -25,6 +39,11 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
+import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -41,17 +60,17 @@ public class PathGoogleMapActivity extends SherlockFragmentActivity {
 			-73.998585);
 	private static final LatLng BROOKLYN_BRIDGE = new LatLng(40.7057, -73.9964);
 	private static final LatLng WALL_STREET = new LatLng(40.7064, -74.0094);
-
+	private ProgressDialog pDialog;
 	GoogleMap googleMap;
 	final String TAG = "PathGoogleMapActivity";
 	ConnectionDetector cd;
-	
+	ReadTask downloadTask;
 	
 	Marker S,D;
 	Polyline P;
 	int source,desti;
-	
-	
+	private LocationClient mLocationClient;
+	Location nwLocation;
 	
 	  String [][]anArray = {{ "Hall 1", "26.509635709361234", "80.2316951751709" },
               { "Hall 2","26.510557","80.229893" },
@@ -67,7 +86,7 @@ public class PathGoogleMapActivity extends SherlockFragmentActivity {
               {"Outreach Auditorium","26.509002","80.233583"},
               {"Auditorium", "26.513438","80.236223"},
               {"Hall 1 Parking Lot", "26.509098","80.231888" },
-              {"Audi Grounds", " 26.513438","80.235965"},
+              {"Audi Grounds", "26.513438","80.235965"},
               {"Tutorial Block", "26.510711","80.232167"},      
               {"SAC", "26.510365","80.235386"},
               {"Hindi Lits Desk","26.509098","80.231888"},                       
@@ -91,15 +110,17 @@ public class PathGoogleMapActivity extends SherlockFragmentActivity {
               {"L13", "26.511345","80.233176"},                         
               {"L14", "26.511345","80.233176"},   
               {"L15", "26.511345","80.233176"},   
-              {"L16", " 26.510865","80.233326"},     
-              {"L17", " 26.510865","80.233326"},   
-              {"GH Road", " 26.507792","80.23309"},   
-              {"In front of Hall  3", " 26.508176","80.23073"}, 
-              {"Outreach Hall  of Fame", " 26.509079","80.233884"}  
+              {"L16", "26.510865","80.233326"},     
+              {"L17", "26.510865","80.233326"},   
+              {"GH Road", "26.507792","80.23309"},   
+              {"In front of Hall  3", "26.508176","80.23073"}, 
+              {"Outreach Hall  of Fame", "26.509079","80.233884"}  
                };
 	
 	int i;
 	String[] names;
+	AppLocationService appLocationService;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -144,6 +165,7 @@ public class PathGoogleMapActivity extends SherlockFragmentActivity {
 		
 		
 		googleMap.setMyLocationEnabled(true);
+		googleMap.isMyLocationEnabled();
 		
 
 		// Enable / Disable zooming controls
@@ -161,12 +183,75 @@ public class PathGoogleMapActivity extends SherlockFragmentActivity {
 		// Enable / Disable zooming functionality
 		googleMap.getUiSettings().setZoomGesturesEnabled(true);
 		
+		appLocationService = new AppLocationService(this);
+		Location ab=Find_location();
 		
-
+		
+   //googleMap.getMyLocation();
 		
 		
 		
 	}
+	
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+	
+	
+	
+		  
+	}
+	
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+	
+	
+	
+		
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		
+		if(downloadTask!=null)
+		{
+		downloadTask.cancel(true);
+		}
+		
+		
+	}
+	
+	private ConnectionCallbacks mConnectionCallbacks = new ConnectionCallbacks() {
+
+	    @Override
+	    public void onDisconnected() {
+	    }
+
+	    @Override
+	    public void onConnected(Bundle arg0) {
+//	        LocationRequest locationRequest = LocationRequest.create();
+//	        locationRequest.setFastestInterval(0);
+//	        locationRequest.setInterval(0).setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+//	        mLocationClient.requestLocationUpdates(locationRequest, mLocationListener);
+	    }
+	};
+
+	private OnConnectionFailedListener mConnectionFailedListener = new OnConnectionFailedListener() {
+
+	    @Override
+	    public void onConnectionFailed(ConnectionResult arg0) {
+	        Log.e(TAG, "ConnectionFailed");
+	    }
+	};
+	
+	
 	
 	
 	@Override
@@ -177,8 +262,7 @@ public class PathGoogleMapActivity extends SherlockFragmentActivity {
 		if(item.getTitle()=="From")
 		{
 			
-			
-			
+					
 			
 
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -189,8 +273,19 @@ public class PathGoogleMapActivity extends SherlockFragmentActivity {
 			       
 			        if(item==0)
 			        {
-			        	source=-3;
-			        	 setSourcepointer("Current Location", new LatLng(googleMap.getMyLocation().getLatitude(), googleMap.getMyLocation().getLongitude()));
+			        	
+			        	Location ab=Find_location();
+			        	if(ab!=null)
+			        	{
+			        		source=-3;
+				        	 setSourcepointer("Current Location", new LatLng(nwLocation.getLatitude(), nwLocation.getLongitude()));
+			        	}
+			        	else
+			        	{
+			        		Toast.makeText(getApplicationContext(), "Cant get current Location", Toast.LENGTH_SHORT);
+			        		
+			        	}
+			        	
 			        	
 			        }
 			        else
@@ -220,8 +315,23 @@ public class PathGoogleMapActivity extends SherlockFragmentActivity {
 			        
 			        if(item==0)
 			        {
-			          desti=-3;
-			          setDestipointe("Current Location", new LatLng(googleMap.getMyLocation().getLatitude(), googleMap.getMyLocation().getLongitude()));
+			        	
+			        	Location ab=Find_location();
+			        	if(ab!=null)
+			        	{
+			        	
+			        	 	
+					          desti=-3;
+					          setDestipointe("Current Location", new LatLng(nwLocation.getLatitude(), nwLocation.getLongitude()));
+			        	}
+			        	else
+			        	{
+			        		Toast.makeText(getApplicationContext(), "Cant get current Location", Toast.LENGTH_SHORT);
+			        		
+			        	}
+			        	
+			        	
+			       
 			          
 			        }
 			        else
@@ -286,6 +396,88 @@ public class PathGoogleMapActivity extends SherlockFragmentActivity {
 		
 		return super.onOptionsItemSelected(item);
 	}
+	
+	
+	
+	public Location Find_location()
+	{
+		
+		
+		
+		 nwLocation = appLocationService
+					.getLocation(LocationManager.NETWORK_PROVIDER);
+			
+			
+//			Location gpsLocation = appLocationService
+//					.getLocation(LocationManager.GPS_PROVIDER);
+//
+//			if (gpsLocation != null) {
+//				double latitude = gpsLocation.getLatitude();
+//				double longitude = gpsLocation.getLongitude();
+//				Toast.makeText(
+//						getApplicationContext(),
+//						"Mobile Location (GPS): \nLatitude: " + latitude
+//								+ "\nLongitude: " + longitude,
+//						Toast.LENGTH_LONG).show();
+//			} else {
+//				showSettingsAlert("GPS");
+//			}
+			
+			if (nwLocation != null) {
+//				double latitude = nwLocation.getLatitude();
+//				double longitude = nwLocation.getLongitude();
+				///Toast.makeText(
+					//	getApplicationContext(),
+					//	"Mobile Location (NW): \nLatitude: " + latitude
+						//		+ "\nLongitude: " + longitude,
+						//Toast.LENGTH_LONG).show();
+				return nwLocation;
+				
+				
+			} else {
+				showSettingsAlert("NETWORK");
+			}
+			return null;
+
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	public void showSettingsAlert(String provider) {
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+		alertDialog.setTitle(provider + " SETTINGS");
+
+		alertDialog
+				.setMessage(provider + " is not enabled! Want to go to settings menu?");
+
+		alertDialog.setPositiveButton("Settings",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+						startActivity(intent);
+					}
+				});
+
+		alertDialog.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+				});
+
+		alertDialog.show();
+	}	
+	
 	
 	
 	
@@ -409,7 +601,7 @@ String url = null;
 			else
 			{
 				String waypoints = "waypoints=optimize:true|"
-						+ googleMap.getMyLocation().getLatitude() + "," + googleMap.getMyLocation().getLongitude()
+						+ nwLocation.getLatitude() + "," +nwLocation.getLongitude()
 						+ "|" + anArray[desti][1] + ","
 						+ anArray[desti][2];
 
@@ -427,8 +619,8 @@ String url = null;
 			{
 				String waypoints = "waypoints=optimize:true|"
 						+ anArray[source][1] + "," + anArray[source][2]
-						+ "|" + googleMap.getMyLocation().getLatitude() + ","
-						+ googleMap.getMyLocation().getLongitude();
+						+ "|" + nwLocation.getLatitude() + ","
+						+ nwLocation.getLongitude();
 
 				String sensor = "sensor=false";
 				String params = waypoints + "&" + sensor;
@@ -449,7 +641,7 @@ String url = null;
 		
 		if(url!=null)
 		{
-		ReadTask downloadTask = new ReadTask();
+		 downloadTask = new ReadTask();
 		downloadTask.execute(url);
 		}
 		else
@@ -467,7 +659,7 @@ public void draw_path()
 {
 	
 	String url = getMapsApiDirectionsUrl(source,desti);
-	ReadTask downloadTask = new ReadTask();
+	downloadTask = new ReadTask();
 	downloadTask.execute(url);
 
 
@@ -492,7 +684,7 @@ public void zoomer()
 	}
 	else
 	{
-		l=new LatLng(googleMap.getMyLocation().getLatitude(),googleMap.getMyLocation().getLongitude());
+		l=new LatLng(nwLocation.getLatitude(),nwLocation.getLongitude());
 		
 	}
 	
@@ -537,25 +729,155 @@ public void zoomer()
 	}
 
 	private class ReadTask extends AsyncTask<String, Void, String> {
+		
+		
+		
 		@Override
-		protected String doInBackground(String... url) {
-			String data = "";
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+		
+		
+//			pDialog = new ProgressDialog(PathGoogleMapActivity.this);
+//			pDialog.setMessage("Please Wait");
+//			pDialog.setCancelable(true);
+//			pDialog.show();
+			
+			
+			
+			
+			
+			
+			   pDialog = ProgressDialog.show(
+			            PathGoogleMapActivity.this,
+			            "Please wait...",
+			            "Loading the data",
+			            true,
+			            true,
+			            new DialogInterface.OnCancelListener(){
+			                @Override
+			                public void onCancel(DialogInterface dialog) {
+			                    ReadTask.this.cancel(true);
+			                }
+			            }
+			    );
+			
+			
+			
+			
+			
+			
+		
+		
+		}
+		
+		@Override
+		protected String doInBackground(String... url1) {
+//			String data = "";
+//			try {
+//				HttpConnection http = new HttpConnection();
+//				data = http.readUrl(url[0]);
+//			} catch (Exception e) {
+//				Log.d("Background Task", e.toString());
+//			}
+           String mapsApiDirectionsUrl=url1[0];
+			String data = null;
+			InputStream iStream = null;
+			HttpURLConnection urlConnection = null;
 			try {
-				HttpConnection http = new HttpConnection();
-				data = http.readUrl(url[0]);
+				URL url = new URL(mapsApiDirectionsUrl);
+				urlConnection = (HttpURLConnection) url.openConnection();
+				if(urlConnection==null)
+				{
+					return null;
+				}
+				
+				urlConnection.connect();
+				iStream = urlConnection.getInputStream();
+				BufferedReader br = new BufferedReader(new InputStreamReader(
+						iStream));
+				StringBuffer sb = new StringBuffer();
+				String line = "";
+				while ((line = br.readLine()) != null) {
+					sb.append(line);
+				}
+				data = sb.toString();
+				br.close();
 			} catch (Exception e) {
-				Log.d("Background Task", e.toString());
+				Log.d("Exception while reading url", e.toString());
+			} finally {
+				try {
+					iStream.close();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if(urlConnection==null)
+				{
+					return null;
+				}
+				urlConnection.disconnect();
 			}
+			
+			
 			return data;
 		}
 
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
-			new ParserTask().execute(result);
+			
+			Log.d("shortest path", result);
+			if(result!=null&&result!="")
+			{
+			new ParserTask().execute(result);}
+		
+		else
+		{
+			
+			
+			if (pDialog.isShowing())
+				pDialog.dismiss();
+			
+			Toast.makeText(getApplicationContext(), "Connection Error", Toast.LENGTH_SHORT).show();
 		}
-	}
+	}}
 
+	public class HttpConnection {
+		public String readUrl(String mapsApiDirectionsUrl) throws IOException {
+			String data = "";
+			InputStream iStream = null;
+			HttpURLConnection urlConnection = null;
+			try {
+				URL url = new URL(mapsApiDirectionsUrl);
+				urlConnection = (HttpURLConnection) url.openConnection();
+				urlConnection.connect();
+				iStream = urlConnection.getInputStream();
+				BufferedReader br = new BufferedReader(new InputStreamReader(
+						iStream));
+				StringBuffer sb = new StringBuffer();
+				String line = "";
+				while ((line = br.readLine()) != null) {
+					sb.append(line);
+				}
+				data = sb.toString();
+				br.close();
+			} catch (Exception e) {
+				Log.d("Exception while reading url", e.toString());
+			} finally {
+				iStream.close();
+				urlConnection.disconnect();
+			}
+			return data;
+		}
+
+	}
+	
+	
+	
+	
+	
 	private class ParserTask extends
 			AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
 
@@ -609,10 +931,15 @@ public void zoomer()
 				}
 				
 				P=googleMap.addPolyline(polyLineOptions);
+				
+				if (pDialog.isShowing())
+					pDialog.dismiss();
+				
 			} catch (NullPointerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				
+				if (pDialog.isShowing())
+					pDialog.dismiss();
 				Toast.makeText(getApplicationContext(), "Unable to build path", Toast.LENGTH_SHORT).show();
 				
 			}

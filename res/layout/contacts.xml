@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@drawable/mett"
+    android:id="@+id/id_contacts">
+
+    
+  
+ 
+    <TextView 
+        android:id="@+id/ourteam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+      
+        android:textStyle="bold"
+        android:text="OUR TEAM"
+        android:textSize="37dp"
+        
+        android:textColor="#FF0000"
+        
+  />
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="@drawable/mett"
+        />
+    
+       <ListView 
+        android:id="@+id/cntcs_lv2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"       
+        
+
+     
+              android:listSelector="@android:color/transparent"             
+android:cacheColorHint="@android:color/transparent"
+        
+        
+        ></ListView>
+    
+    
+    
+    
+    
+
+</LinearLayout>
