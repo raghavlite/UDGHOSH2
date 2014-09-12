@@ -1,5 +1,7 @@
 package com.example.udghosh2;
 
+import com.example.adapters.CardInflater;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;

@@ -6,6 +6,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
 import com.devspark.sidenavigation.SideNavigationView.Mode;
+import com.example.adapters.CardInflater;
 import com.markupartist.android.widget.PullToRefreshListView;
 import com.markupartist.android.widget.PullToRefreshListView.OnRefreshListener;
 
@@ -237,6 +238,16 @@ public class MainActivity extends SherlockActivity implements ISideNavigationCal
             	startActivity(in5);
             	
                 break;
+                
+            case R.id.item11:
+            
+                //invokeActivity(getString(R.string.title5), R.drawable.ic_android5);
+            	Intent in11=new Intent(getApplicationContext(), notification.class);
+            	startActivity(in11);
+            	
+            	
+                break;
+                
                 
             case R.id.item13:
             	

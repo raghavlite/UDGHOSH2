@@ -1,9 +1,13 @@
-package com.example.udghosh2;
+package com.example.adapters;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.example.udghosh2.BaseInflaterAdapter;
+import com.example.udghosh2.CardItemData;
+import com.example.udghosh2.IAdapterViewInflater;
+import com.example.udghosh2.R;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
@@ -82,23 +86,23 @@ public class CardInflater implements IAdapterViewInflater<CardItemData>
 	
 	
 	
-	
-	private static class AnimateFirstDisplayListener extends SimpleImageLoadingListener {
-
-		static final List<String> displayedImages = Collections.synchronizedList(new LinkedList<String>());
-
-		@Override
-		public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-			if (loadedImage != null) {
-				ImageView imageView = (ImageView) view;
-				boolean firstDisplay = !displayedImages.contains(imageUri);
-				if (firstDisplay) {
-					FadeInBitmapDisplayer.animate(imageView, 500);
-					displayedImages.add(imageUri);
-				}
-			}
-		}
-	}
-	
-	
+//	
+//	private static class AnimateFirstDisplayListener extends SimpleImageLoadingListener {
+//
+//		static final List<String> displayedImages = Collections.synchronizedList(new LinkedList<String>());
+//
+//		@Override
+//		public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+//			if (loadedImage != null) {
+//				ImageView imageView = (ImageView) view;
+//				boolean firstDisplay = !displayedImages.contains(imageUri);
+//				if (firstDisplay) {
+//					FadeInBitmapDisplayer.animate(imageView, 500);
+//					displayedImages.add(imageUri);
+//				}
+//			}
+//		}
+//	}
+//	
+//	
 }
