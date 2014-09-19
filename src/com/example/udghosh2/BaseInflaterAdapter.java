@@ -5,22 +5,31 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import com.example.adapters.CardInflater;
+import com.example.adapters.carder2;
 
 public class BaseInflaterAdapter<T> extends BaseAdapter
 {
 	private List<T> m_items = new ArrayList<T>();
 	private IAdapterViewInflater<T> m_viewInflater;
 
-	public BaseInflaterAdapter(IAdapterViewInflater<T> viewInflater)
+	public BaseInflaterAdapter(CardInflater cardInflater)
 	{
-		m_viewInflater = viewInflater;
+		m_viewInflater = (IAdapterViewInflater<T>) cardInflater;
 	}
 
 	public BaseInflaterAdapter(List<T> items, IAdapterViewInflater<T> viewInflater)
 	{
 		m_items.addAll(items);
 		m_viewInflater = viewInflater;
+	}
+
+	public BaseInflaterAdapter(carder2 carder2) {
+		// TODO Auto-generated constructor stub
+		m_viewInflater = (IAdapterViewInflater<T>) carder2;
 	}
 
 	public void setViewInflater(IAdapterViewInflater<T> viewInflater, boolean notifyChange)
@@ -68,9 +77,9 @@ public class BaseInflaterAdapter<T> extends BaseAdapter
 		return getTItem(pos);
 	}
 
-	public T getTItem(int pos)
+	public Object getTItem(int pos)
 	{
-		return m_items.get(pos);
+		return  m_items.get(pos);
 	}
 
 	@Override

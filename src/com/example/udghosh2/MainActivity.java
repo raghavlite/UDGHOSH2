@@ -3,7 +3,21 @@ package com.example.udghosh2;
 
 
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.devspark.sidenavigation.ISideNavigationCallback;
@@ -14,7 +28,13 @@ import com.example.adapters.CardInflater;
 import com.markupartist.android.widget.PullToRefreshListView;
 import com.markupartist.android.widget.PullToRefreshListView.OnRefreshListener;
 
+
+
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
@@ -23,6 +43,8 @@ import com.actionbarsherlock.view.MenuInflater;
 
 import android.R.integer;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,14 +59,26 @@ import android.os.Build;
 
 public class MainActivity extends SherlockActivity implements ISideNavigationCallback{
 
-	BaseInflaterAdapter<CardItemData> adapter;
+	BaseInflaterAdapter<HashMap<String, String>> adapter;
 	PullToRefreshListView list;
 	private SideNavigationView sideNavigationView;
 	public static DisplayImageOptions options;
 	ConnectionDetector cd;
-
+	File myInternalFile;
+	private String filepath = "MyFileStorage";
+	private String filename = "MySampleFile.txt";
+	private String TAG_URL="url";
+	private String TAG_INFO="info";
+	ArrayList<HashMap<String, String>> contactList;
+	ArrayList<HashMap<String, String>> oldList;
 	private ProgressDialog pDialog;
-    @Override
+	public static ImageLoader imageLoader;
+   
+	
+	
+	
+	
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_main);
@@ -52,9 +86,19 @@ public class MainActivity extends SherlockActivity implements ISideNavigationCal
         
         Constans_.Curr_Act=1;
         
+        ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
+        File directory = contextWrapper.getDir(filepath, Context.MODE_PRIVATE);
+        myInternalFile = new File(directory , filename);
         
+        contactList = new ArrayList<HashMap<String, String>>();
+        try {
+			oldList=get_file();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
-        
+       // Toast.makeText(getApplicationContext(), "old list is  "+oldList, Toast.LENGTH_SHORT).show();
         
 		cd = new ConnectionDetector(getApplicationContext());
 
@@ -75,26 +119,21 @@ public class MainActivity extends SherlockActivity implements ISideNavigationCal
 			Toast.makeText(getApplicationContext(), "connected ", Toast.LENGTH_SHORT).show();
 		}
 		
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+		.threadPriority(Thread.NORM_PRIORITY - 2)
+		.denyCacheImageMultipleSizesInMemory()
+		.diskCacheFileNameGenerator(new Md5FileNameGenerator())
+		.diskCacheSize(50 * 1024 * 1024) // 50 Mb
+		.tasksProcessingOrder(QueueProcessingType.LIFO)
+		.writeDebugLogs() // Remove for release app
+		.build();
+// Initialize ImageLoader with configuration.
+ImageLoader.getInstance().init(config);
+        
+		 imageLoader = ImageLoader.getInstance();
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+	
         
     	options = new DisplayImageOptions.Builder()
 		.showImageOnLoading(R.drawable.ic_stub)
@@ -120,29 +159,67 @@ public class MainActivity extends SherlockActivity implements ISideNavigationCal
             @Override
             public void onRefresh() {
                 // Do work to refresh the list here.
-                new GetDataTask().execute();
+              
+            	if (!cd.isConnectingToInternet()) {
+        			// Internet Connection is not present
+        			Toast.makeText(getApplicationContext(), "Not connected to internet", Toast.LENGTH_SHORT).show();
+        			// stop executing code by return
+        			
+        		}
+        		
+        		else
+        		{
+        			
+        			new GetContacts().execute();
+        			
+        			
+        			//Toast.makeText(getApplicationContext(), "connected ", Toast.LENGTH_SHORT).show();
+        		}
+            	
             }
         });
         
         
 		list.addHeaderView(new View(this));
 		list.addFooterView(new View(this));
-		 adapter = new BaseInflaterAdapter<CardItemData>(new CardInflater());
+		 adapter = new BaseInflaterAdapter<HashMap<String, String>>(new CardInflater());
 		
 		list.setAdapter(adapter);
 
 		
-		for (int i = 0; i < 50; i++)
-		{
-			CardItemData data = new CardItemData("Item " + i + " Line 1", "Item " + i + " Line 2", "Item " + i + " Line 3");
-			adapter.addItem(data, false);
-		}
-
+	//	list.onRefresh();
 		
-        
-        
-        
-        
+		HashMap<String, String> contact = new HashMap<String, String>();
+		//
+								// adding each child node to HashMap key => value
+								contact.put(TAG_URL, "drawable://" + R.drawable.ic_stub);
+								contact.put(TAG_INFO, "Welcome to Udghosh<Team Udghosh>");
+		
+								int i;
+								for(i=0;i<10;i++)
+								{
+									adapter.addItem(contact, true);
+									
+								}
+								
+								
+								Toast.makeText(contextWrapper, "old is "+oldList, Toast.LENGTH_SHORT).show();
+								for(i=0;i<oldList.size()-1;i++)
+								{
+									adapter.addItem(oldList.get(i), false);
+								}
+								
+								
+								try {
+									adapter.addItem(oldList.get(oldList.size()-1), true);
+								} catch (ArrayIndexOutOfBoundsException e) {
+									// TODO: handle exception
+								}
+								
+		
+	   list.onRefreshComplete();
+	   
+
 
         sideNavigationView = (SideNavigationView) findViewById(R.id.side_navigation_view);
         ArrayList<Integer> a=new ArrayList<Integer>();
@@ -162,42 +239,81 @@ public class MainActivity extends SherlockActivity implements ISideNavigationCal
         
     }
 
-
     
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+	
+		CardInflater.AnimateFirstDisplayListener.displayedImages.clear();
+		super.onDestroy();
+	}
+	
     
-    private class GetDataTask extends AsyncTask<Void, Void, String> {
-
-        @Override
-        protected String doInBackground(Void... params) {
-            // Simulates a background job.
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                ;
-            }
-            return "";
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            //mListItems.addFirst("Added after refresh...");
-
-            // Call onRefreshComplete when the list has been refreshed.
-            //((PullToRefreshListView) getListView()).onRefreshComplete();
-        	
-        	CardItemData data = new CardItemData("new item", "new item", "new item");
-			adapter.addItem(data, false);
-			
-			list.onRefreshComplete();
-
-            super.onPostExecute(result);
-        }
+    public void updateUI(int p){
+    	int i,j;
+    	
+    	
+    	j=contactList.size()-1;
+    	for(i=p;i<j;i++)
+    	{
+    		adapter.addItem(contactList.get(i), false);
+    	}
+    	try {
+    		adapter.addItem(contactList.get(j), true);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			// TODO: handle exception
+		}
+    	
+    	
+    	oldList=contactList;
+    	
     }
+    
+    
 
     
+    public void put_file()
+    {
+    	
+    	
+    	try {
+			FileOutputStream fos = new FileOutputStream(myInternalFile);
+			 ObjectOutputStream of = new ObjectOutputStream(fos);
+	            of.writeObject(contactList);
+	            of.flush();
+	            of.close();
+	            fos.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		  	
+    	
+    	
+    }
     
     
-    
+    public ArrayList<HashMap<String, String>> get_file() throws ClassNotFoundException
+    {
+    	ArrayList<HashMap<String, String>> toReturn=new ArrayList<HashMap<String,String>>();
+    	
+   try {
+		FileInputStream fis = new FileInputStream(myInternalFile);
+		DataInputStream in = new DataInputStream(fis);
+		ObjectInputStream oi = new ObjectInputStream(fis);
+
+		
+		toReturn = (ArrayList<HashMap<String, String>>) oi.readObject();
+	       oi.close();
+	} catch (IOException e) {
+		e.printStackTrace();
+		return toReturn;
+	}
+   
+   return toReturn;
+
+    	
+    }
     
     
     
@@ -319,18 +435,11 @@ public class MainActivity extends SherlockActivity implements ISideNavigationCal
     
     
     
+    
+    
+    
     private class GetContacts extends AsyncTask<Void, Void, String> {
 
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			// Showing progress dialog
-			pDialog = new ProgressDialog(MainActivity.this);
-			pDialog.setMessage("Please wait...");
-			pDialog.setCancelable(false);
-			pDialog.show();
-
-		}
 
 		@Override
 		protected String doInBackground(Void... arg0) {
@@ -342,70 +451,80 @@ public class MainActivity extends SherlockActivity implements ISideNavigationCal
 
 			Log.d("Response: ", "> " + jsonStr);
 
-//			if (jsonStr != null) {
-//				try {
-//					JSONObject jsonObj = new JSONObject(jsonStr);
-//					
-//					// Getting JSON Array node
+			if (jsonStr != null) {
+				try {
+					//JSONObject jsonObj = new JSONObject(jsonStr);
+					JSONArray jsonArr=new JSONArray(jsonStr);
+					// Getting JSON Array node
 //					contacts = jsonObj.getJSONArray(TAG_CONTACTS);
 //
-//					// looping through All Contacts
-//					for (int i = 0; i < contacts.length(); i++) {
-//						JSONObject c = contacts.getJSONObject(i);
-//						
-//						String id = c.getString(TAG_ID);
-//						String name = c.getString(TAG_NAME);
-//						String email = c.getString(TAG_EMAIL);
-//						String address = c.getString(TAG_ADDRESS);
-//						String gender = c.getString(TAG_GENDER);
-//
-//						// Phone node is JSON Object
-//						JSONObject phone = c.getJSONObject(TAG_PHONE);
-//						String mobile = phone.getString(TAG_PHONE_MOBILE);
-//						String home = phone.getString(TAG_PHONE_HOME);
-//						String office = phone.getString(TAG_PHONE_OFFICE);
-//
-//						// tmp hashmap for single contact
-//						HashMap<String, String> contact = new HashMap<String, String>();
-//
-//						// adding each child node to HashMap key => value
-//						contact.put(TAG_ID, id);
-//						contact.put(TAG_NAME, name);
-//						contact.put(TAG_EMAIL, email);
-//						contact.put(TAG_PHONE_MOBILE, mobile);
-//
-//						// adding contact to contact list
-//						contactList.add(contact);
-//					}
-//				} catch (JSONException e) {
-//					e.printStackTrace();
-//				}
-//			} else {
-//				Log.e("ServiceHandler", "Couldn't get any data from the url");
-//			}
+					if(jsonArr.length()==oldList.size())
+					{
+						return "0";
+					}
+				contactList=new ArrayList<HashMap<String,String>>();	
+				// looping through All Contacts
+					for (int i = 0; i < jsonArr.length(); i++) {
+						JSONObject c = jsonArr.getJSONObject(i);
+						
+						String url= c.getString(TAG_URL);
+						String info = c.getString(TAG_INFO);
 
-			return jsonStr;
+						HashMap<String, String> contact = new HashMap<String, String>();
+
+						contact.put(TAG_URL, Config.IMAGE_URL+url);
+						contact.put(TAG_INFO, info);
+                          
+						contactList.add(contact);
+						
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+					
+					return "0";
+				}
+			} else {
+				Log.e("ServiceHandler", "Couldn't get any data from the url");
+				
+				return "0";
+			}
+
+			return "1";
 		}
 
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
 			// Dismiss the progress dialog
-			if (pDialog.isShowing())
-				pDialog.dismiss();
+
+			
+			list.onRefreshComplete();
 			/**
 			 * Updating parsed JSON data into ListView
 			 * */
+			if(result.contains("1"))
+			{
+				//Toast.makeText(getApplicationContext(), "new updates found  "+contactList, Toast.LENGTH_SHORT).show();
+				Log.v("raghav",""+contactList);
+				
+				updateUI(oldList.size());
+				
+				put_file();
+				
+				//Toast.makeText(getApplicationContext(), ""+contactList, Toast.LENGTH_SHORT).show();
+				
+			}
+			else
+			{
+				
+				Log.v("raghav", "no new updates");
+				
+			}
 			
-			Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+			
+		//	Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
 			Log.d("RAGHAV", result);
-//			ListAdapter adapter = new SimpleAdapter(
-//					MainActivity.this, contactList,
-//					R.layout.list_item, new String[] { TAG_NAME, TAG_EMAIL,
-//							TAG_PHONE_MOBILE }, new int[] { R.id.name,
-//							R.id.email, R.id.mobile });
-//
-//			setListAdapter(adapter);
+
 		}
 
 	}

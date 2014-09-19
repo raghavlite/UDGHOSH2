@@ -346,6 +346,8 @@ public class Startup extends Activity{
 				MainActivity.class.getSimpleName(), Context.MODE_PRIVATE);
 		
 		
+		Log.d("raghav", ""+prefs.getBoolean(SER_REG, false));
+		
 		return prefs.getBoolean(SER_REG, false);
 		
 		
@@ -360,6 +362,17 @@ public class Startup extends Activity{
 	{
 		
 		Log.d("Startup", "into our S with Server func");
+		
+		if(Check_ifserved())
+		{
+			startActivity(in);
+			finish();
+			
+			return ;
+		}
+		
+		
+		
 		
 		
 		final Context context = this;
@@ -412,7 +425,12 @@ public class Startup extends Activity{
 			@Override
 			protected void onPostExecute(String result) {
 				
-				if(result=="1")
+				
+				Log.d("raghav", ""+result);
+				
+				
+				
+				if(result.equals("1op0"))
 				{
 				StoreinSP();					
 				}

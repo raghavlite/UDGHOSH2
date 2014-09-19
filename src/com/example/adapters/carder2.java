@@ -37,7 +37,7 @@ public class carder2 implements IAdapterViewInflater<CardItemData>{
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		final CardItemData item = adapter.getTItem(pos);
+		final CardItemData item = (CardItemData) adapter.getTItem(pos);
 		holder.updateDisplay(item);
 
 		return convertView;
