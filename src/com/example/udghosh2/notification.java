@@ -3,9 +3,14 @@ package com.example.udghosh2;
 import java.util.ArrayList;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -23,7 +28,12 @@ public class notification extends SherlockActivity {
 	
 	String asd;
 	
-	
+	SharedPreferences sharedpreferences;
+	String[] noti_arr;
+	public static Handler h;
+	static String b;
+
+	static String a;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -33,9 +43,40 @@ public class notification extends SherlockActivity {
 	        
 	        
 	        
-	   
+	        h=new Handler(){
+	        	
+	        	@Override
+	        	public void handleMessage(Message msg) {
+	        		// TODO Auto-generated method stub
+	        		super.handleMessage(msg);
+	        		
+	        		
+	        		Toast.makeText(getApplicationContext(), "received", Toast.LENGTH_SHORT).show();
+	        		
+	        		addData(msg.obj.toString());
+	        		
+	        		
+	        	}
+	        	
+	        	
+	        };
 	        
-		  ListView  list=(ListView)findViewById(R.id.list_view); 
+	        
+	        
+	       Constans_.Curr_Act=2;
+	        
+	        
+	        sharedpreferences = getSharedPreferences(Config.NOTI_PREF, Context.MODE_PRIVATE);
+			
+			String noti=sharedpreferences.getString("Notifications", "Tester Notification <Day 1>;");
+	        
+	        
+	  noti_arr=noti.split(";");
+			
+			
+			
+	        
+		ListView  list=(ListView)findViewById(R.id.list_view); 
 		
 		list.addHeaderView(new View(this));
 		list.addFooterView(new View(this));
@@ -43,10 +84,11 @@ public class notification extends SherlockActivity {
 		
 		list.setAdapter(adapter);
 
-		
-		for (int i = 0; i < 50; i++)
+		int l;
+		l=noti_arr.length;
+		for (int i = 0; i < l; i++)
 		{
-			addData("line "+i);
+			addData(noti_arr[l-i-1]);
 		}
 
 		
@@ -62,14 +104,42 @@ public class notification extends SherlockActivity {
 		
 	
 	public static void addData(String ragahv)
-	{
+	{try {
+		 a= ragahv.substring(ragahv.indexOf('<')+1,ragahv.indexOf('>'));
+		 b=ragahv.substring(0, ragahv.indexOf('<')-1);
 		
 		
-		CardItemData data = new CardItemData(" Line 1", " Line 2", ragahv);
-		adapter.addItem(data, false);
+		
+		
+			
+		} catch (IndexOutOfBoundsException e) {
+			// TODO: handle exception
+			
+			
+		}
+	CardItemData data = new CardItemData(" Line 1",a, b);
+		adapter.addItem(data, true);
 		
 	}
 	
+	
+	
+	
+	
+
+	
+	
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+	
+	
+	Constans_.Curr_Act=1;
+	
+	
+	}
 	
 	
 	

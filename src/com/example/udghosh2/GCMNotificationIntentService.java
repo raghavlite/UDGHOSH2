@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -19,12 +21,20 @@ public class GCMNotificationIntentService extends IntentService {
 	private NotificationManager mNotificationManager;
 	NotificationCompat.Builder builder;
 	SharedPreferences sharedpreferences;
-	
+	Handler h;
 	
 	public GCMNotificationIntentService() {
 		super("GcmIntentService");
 	}
 
+	@Override
+	public void onCreate() {
+		// TODO Auto-generated method stub
+		super.onCreate();
+	
+	h=notification.h;
+	}
+	
 	public static final String TAG = "GCMNotificationIntentService";
 
 	@Override
@@ -63,15 +73,43 @@ public class GCMNotificationIntentService extends IntentService {
 		}
 		GcmBroadcastReceiver.completeWakefulIntent(intent);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	private void sendNotification(String msg) {
 		
 		sharedpreferences = getSharedPreferences(Config.NOTI_PREF, Context.MODE_PRIVATE);
 		
-		String noti=sharedpreferences.getString("Notifications", ";");
+		String noti=sharedpreferences.getString("Notifications", "Tester Notification <Day 1>;");
 		
 		noti=msg+";"+noti;
 		
+		
+		SharedPreferences.Editor editor = sharedpreferences.edit();
+		editor.putString("Notifications", noti);
+		
+		editor.commit();
+		
+		
+		
+		
+		if(Constans_.Curr_Act==2)
+		{
+		
+			Message msg1 = Message.obtain();
+			msg1.obj=msg;
+			h.sendMessage(msg1);
+			
+		}
 		Log.d(TAG, "Preparing to send notification...: " + msg);
 		mNotificationManager = (NotificationManager) this
 				.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -84,6 +122,7 @@ public class GCMNotificationIntentService extends IntentService {
 				.setContentTitle("NEWS Udghosh")
 				.setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
 				.setContentText(msg);
+		
 
 		mBuilder.setContentIntent(contentIntent);
 		mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());

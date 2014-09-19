@@ -13,20 +13,20 @@ public final class R {
 		public static final int pull_to_refresh_header_background = 0x7f0200a3;
 	}
 	public static final class id {
-		public static final int pull_to_refresh_header = 0x7f080049;
-		public static final int pull_to_refresh_image = 0x7f08004b;
-		public static final int pull_to_refresh_progress = 0x7f08004a;
-		public static final int pull_to_refresh_text = 0x7f08004c;
-		public static final int pull_to_refresh_updated_at = 0x7f08004d;
+		public static final int pull_to_refresh_header = 0x7f060049;
+		public static final int pull_to_refresh_image = 0x7f06004b;
+		public static final int pull_to_refresh_progress = 0x7f06004a;
+		public static final int pull_to_refresh_text = 0x7f06004c;
+		public static final int pull_to_refresh_updated_at = 0x7f06004d;
 	}
 	public static final class layout {
 		public static final int pull_to_refresh_header = 0x7f030021;
 	}
 	public static final class string {
-		public static final int app_name = 0x7f070000;
-		public static final int pull_to_refresh_pull_label = 0x7f070001;
-		public static final int pull_to_refresh_refreshing_label = 0x7f070003;
-		public static final int pull_to_refresh_release_label = 0x7f070002;
-		public static final int pull_to_refresh_tap_label = 0x7f070004;
+		public static final int app_name = 0x7f070026;
+		public static final int pull_to_refresh_pull_label = 0x7f070027;
+		public static final int pull_to_refresh_refreshing_label = 0x7f070029;
+		public static final int pull_to_refresh_release_label = 0x7f070028;
+		public static final int pull_to_refresh_tap_label = 0x7f07002a;
 	}
 }

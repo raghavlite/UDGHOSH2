@@ -15,6 +15,7 @@
 		android:listSelector="@android:color/transparent"
 		android:cacheColorHint="@android:color/transparent"
 		android:divider="@null"
+		android:clickable="false"
 		android:dividerHeight="10dp" />
     	
    
