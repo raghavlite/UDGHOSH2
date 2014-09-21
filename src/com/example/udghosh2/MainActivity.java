@@ -30,6 +30,7 @@ import com.markupartist.android.widget.PullToRefreshListView.OnRefreshListener;
 
 
 
+
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -53,8 +54,10 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 import android.os.Build;
 
 public class MainActivity extends SherlockActivity implements ISideNavigationCallback{
@@ -164,7 +167,7 @@ ImageLoader.getInstance().init(config);
         			// Internet Connection is not present
         			Toast.makeText(getApplicationContext(), "Not connected to internet", Toast.LENGTH_SHORT).show();
         			// stop executing code by return
-        			
+        			list.onRefreshComplete();
         		}
         		
         		else
@@ -185,7 +188,14 @@ ImageLoader.getInstance().init(config);
 		 adapter = new BaseInflaterAdapter<HashMap<String, String>>(new CardInflater());
 		
 		list.setAdapter(adapter);
-
+      
+		list.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				startImagePagerActivity(position);
+			}
+		});
+		
 		
 	//	list.onRefresh();
 		
@@ -239,6 +249,17 @@ ImageLoader.getInstance().init(config);
         
     }
 
+	private void startImagePagerActivity(int position) {
+		Intent intent = new Intent(this, ImagePagerActivity.class);
+		intent.putExtra(Config.IMAGES, oldList);
+		intent.putExtra(Config.IMAGE_POSITION, oldList.size()-position+1);
+		
+		startActivity(intent);
+	}
+	
+	
+	
+	
     
 	
 	@Override
