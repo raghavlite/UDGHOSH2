@@ -15,13 +15,20 @@
  *******************************************************************************/
 package com.example.udghosh2;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -34,6 +41,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
+
+import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -49,13 +58,21 @@ public class ImagePagerActivity extends SherlockActivity {
 	private static final String STATE_POSITION = "STATE_POSITION";
     
 	DisplayImageOptions options;
-
+	ImageView imageView;
 	ViewPager pager;
+	public static SharedPreferences prefs;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_image_pager);
+		
+		
+		
+		 prefs = getSharedPreferences(MainActivity.class.getSimpleName(), Context.MODE_PRIVATE);
+		
+		
+		
 
 		Intent in=getIntent();
 		//assert bundle != null;
@@ -80,10 +97,37 @@ public class ImagePagerActivity extends SherlockActivity {
 		pager = (ViewPager) findViewById(R.id.pager);
 		pager.setAdapter(new ImagePagerAdapter(imageUrls));
 		pager.setCurrentItem(pagerPosition);
+		pager.setDrawingCacheEnabled(true);
 		
+		pager.buildDrawingCache(true);
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
+	
+	
+	
+	
+	
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //Used to put dark icons on light action bar
+      
+
+        menu.add("Download")
+            .setIcon( R.drawable.download )
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+
+
+        return true;
+    }
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	 @Override
@@ -94,12 +138,96 @@ public class ImagePagerActivity extends SherlockActivity {
 	        int id = item.getItemId();
 	        if (id == android.R.id.home) {
 	        	
-	        onBackPressed();
+	        save_image();
 	        }
+	        
+	        
+	        if (item.getTitle()=="Download")
+	        {
+	        	
+	        	save_image();
+	        	
+	        }	        
+	        
+	        
 	        return super.onOptionsItemSelected(item);
 	    }
 
 	
+	 public void  save_image()
+	 {
+		 
+		 int p=prefs.getInt("storer", 1);
+		 
+								
+         OutputStream output;
+		 
+	       pager.setDrawingCacheEnabled(true);
+
+	        pager.buildDrawingCache(true);
+	        pager.setDrawingCacheEnabled(true);
+
+	        Bitmap bitmap = pager.getDrawingCache(true);
+		 
+         //Bitmap bitmap =get;
+		 
+         if(bitmap==null)
+         {
+        	 Toast.makeText(getApplicationContext(), "Falied", Toast.LENGTH_SHORT).show();
+        	 return;
+         }
+         
+		 
+		 File filepath = Environment.getExternalStorageDirectory();
+		 
+         // Create a new folder in SD Card
+         File dir = new File(filepath.getAbsolutePath()
+                 + "/Udghosh/");
+         dir.mkdirs();
+
+         // Create a name for the saved image
+         File file = new File(dir,p+".png");
+
+         // Show a toast message on successful save
+     
+         try {
+
+             output = new FileOutputStream(file);
+
+             // Compress into png format image from 0% - 100%
+             bitmap.compress(Bitmap.CompressFormat.PNG, 100, output);
+             output.flush();
+             output.close();
+             Toast.makeText(getApplicationContext(), "Image Saved to /sdcard/Udghosh",Toast.LENGTH_SHORT).show();
+             
+         }
+
+         catch (Exception e) {
+             // TODO Auto-generated catch block
+             e.printStackTrace();
+             
+             Toast.makeText(getApplicationContext(), "Error Storing file", Toast.LENGTH_SHORT).show();
+         }
+		 
+		 
+         SharedPreferences.Editor editor = prefs.edit();
+			editor.putInt("storer",p+1);
+			
+			editor.commit();
+		 
+		 
+		 
+	 }
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
@@ -130,7 +258,7 @@ public class ImagePagerActivity extends SherlockActivity {
 		public Object instantiateItem(ViewGroup view, int position) {
 			View imageLayout = inflater.inflate(R.layout.item_pager_image, view, false);
 			assert imageLayout != null;
-			ImageView imageView = (ImageView) imageLayout.findViewById(R.id.image);
+			 imageView = (ImageView) imageLayout.findViewById(R.id.image);
 			final ProgressBar spinner = (ProgressBar) imageLayout.findViewById(R.id.loading);
 
 
