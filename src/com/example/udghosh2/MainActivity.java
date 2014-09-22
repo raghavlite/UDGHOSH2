@@ -213,7 +213,7 @@ ImageLoader.getInstance().init(config);
 								}
 								
 								
-								Toast.makeText(contextWrapper, "old is "+oldList, Toast.LENGTH_SHORT).show();
+								//Toast.makeText(contextWrapper, "old is "+oldList, Toast.LENGTH_SHORT).show();
 								for(i=0;i<oldList.size()-1;i++)
 								{
 									adapter.addItem(oldList.get(i), false);
@@ -373,7 +373,9 @@ ImageLoader.getInstance().init(config);
 
             case R.id.item2:
             	Toast.makeText(getApplicationContext(), "2", Toast.LENGTH_SHORT).show();
-            	//invokeActivity(getString(R.string.title2), R.drawable.ic_android2);
+            	Intent in2=new Intent(getApplicationContext(), Schedule.class);
+            	startActivity(in2);
+            	
                 break;
 
             case R.id.item3:
@@ -396,9 +398,8 @@ ImageLoader.getInstance().init(config);
 
             case R.id.item6:
             	Toast.makeText(getApplicationContext(), "5", Toast.LENGTH_SHORT).show();
-                //invokeActivity(getString(R.string.title5), R.drawable.ic_android5);
-//            	Intent in2=new Intent(getApplicationContext(), PathGoogleMapActivity.class);
-//            	startActivity(in2);
+            	Intent in6=new Intent(getApplicationContext(), Adven_sports.class);
+            	startActivity(in6);
             	
                 break;
                 
@@ -440,8 +441,8 @@ ImageLoader.getInstance().init(config);
             case R.id.item13:
             	
                 //invokeActivity(getString(R.string.title5), R.drawable.ic_android5);
-            	Intent in6=new Intent(getApplicationContext(), contacts.class);
-            	startActivity(in6);
+            	Intent in13=new Intent(getApplicationContext(), contacts.class);
+            	startActivity(in13);
             	
                 break;
                 

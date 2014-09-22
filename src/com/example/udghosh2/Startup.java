@@ -81,7 +81,7 @@ public class Startup extends Activity{
 				Toast.makeText(getApplicationContext(),
 						"Google Play Services present",
 						Toast.LENGTH_LONG).show();
-				Log.d("Startup", "GP services present");
+				//Log.d("Startup", "GP services present");
 		    }
 		 
 		 else
@@ -97,11 +97,16 @@ public class Startup extends Activity{
 		 }
 		
 		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		
-		
-		
+	
 		
 		
 		

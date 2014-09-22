@@ -15,8 +15,7 @@
     
     <string name="descr_image">Image</string>
     
-    
-    
+
     
     
     
@@ -113,6 +112,46 @@
    <item>Head Finance</item>
    
   
+  </string-array>
+  <string name="Day1">&lt;u&gt;&lt;b&gt;DAY 1 :&lt;/b&gt;&lt;/u&gt;\n\nRegistration	6:30 PM onwards\nRoadies Form Distribution	7:00 PM onwards\nBoard Games (Twister, Air Hockey)	8:00 PM - Midnight\nPlay and Win	8:00 PM - Midnight\nMinute to Minute	8:00 PM - Midnight\n</string>
+  <string name="Day2">DAY 2  :\n\n  Sportsmania	6:30 PM - 8:00 PM\nTambola	10:30 PM - 11:30 PM\nMinute To Minute	7:00 PM - Midnight\nRoadies(Prelims)	8:30 PM - 10:00 PM\nBoard Games (Air Hockey, Twister)	6:00 PM - Midnight\nPlay and Win	6:00 PM - Midnight\nFree Roll Poker	Midnight\nAuction	Midnight</string>
+  <string-array name="Schedule">
+      
+      
+ <item>
+ Day 1
+<b>DAY 1 :</b>
+<b>Opening Nite-Raethe live in concert</b> <i>7:00 PM</i>
+</item>  
+
+ 
+<item>
+ 
+<b>DAY 1 :</b>
+
+    
+</item>
+              
+<item> 
+Day 1
+<b>DAY 1 :</b>
+
+</item>  
+
+
+<item> 
+ Day 1
+<b>Opening</b>, <i>7:00 PM</i>,
+Registration	6:30 PM onwards
+Roadies Form Distribution	7:00 PM onwards
+Board Games (Twister, Air Hockey)	8:00 PM - Midnight
+Play and Win	8:00 PM - Midnight
+Minute to Minute	8:00 PM - Midnight
+</item>            
+
+      
+      
+      
   </string-array>
     
     

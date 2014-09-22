@@ -24,7 +24,7 @@
    
     <item android:id="@+id/item6"
           android:icon="@drawable/workshops"
-          android:title="Workshops"
+          android:title="Adventure Sports"
         />
     
     <item android:id="@+id/item7"
@@ -42,6 +42,8 @@
           android:title="Navigator Maps"
         />
        
+       
+       
        <item android:id="@+id/item10"
           android:icon="@drawable/ic_launcher"
           android:title="NEWS &amp; MEDIA"
@@ -53,27 +55,27 @@
         />
          
        
-       <item android:id="@+id/item11"
-          android:icon="@drawable/ic_launcher"
+       <item android:id="@+id/item12"
+          android:icon="@drawable/ph"
           android:title="Photos"
         />
        
          <item android:id="@+id/item13"
-          android:icon="@drawable/ic_launcher"
+          android:icon="@drawable/cn"
           android:title="Contacts"
         /> 
        
-         <item android:id="@+id/item13"
-          android:icon="@drawable/ic_launcher"
+         <item android:id="@+id/item14"
+          android:icon="@drawable/sponsor"
           android:title="Sponsors"
         /> 
         
-          <item android:id="@+id/item14"
+          <item android:id="@+id/item15"
           android:icon="@drawable/ic_launcher"
           android:title="SETTINGS"
         />
          
-          <item android:id="@+id/item15"
+          <item android:id="@+id/item16"
           android:icon="@drawable/settings"
           android:title="Settings"
         />

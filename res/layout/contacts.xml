@@ -7,7 +7,7 @@
     android:id="@+id/id_contacts">
 
     
-  
+
  
     <TextView 
         android:id="@+id/ourteam"
@@ -27,6 +27,8 @@
         android:layout_height="15dp"
         android:background="@drawable/mett"
         />
+    
+ 
     
        <ListView 
         android:id="@+id/cntcs_lv2"

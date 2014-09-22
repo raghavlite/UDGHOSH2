@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -132,7 +133,18 @@ public class ImagePagerActivity extends SherlockActivity {
 			ImageView imageView = (ImageView) imageLayout.findViewById(R.id.image);
 			final ProgressBar spinner = (ProgressBar) imageLayout.findViewById(R.id.loading);
 
+
+			
+			
 			MainActivity.imageLoader.displayImage(images.get(position).get("url"), imageView, options, new SimpleImageLoadingListener() {
+				
+				
+				
+				
+				
+				
+				
+				
 				@Override
 				public void onLoadingStarted(String imageUri, View view) {
 					spinner.setVisibility(View.VISIBLE);
@@ -168,6 +180,14 @@ public class ImagePagerActivity extends SherlockActivity {
 					spinner.setVisibility(View.GONE);
 				}
 			});
+			
+			
+			
+			
+			TextView tv2=(TextView)imageLayout.findViewById(R.id.noti_date2);
+			
+			tv2.setText(images.get(position).get("info"));
+			
 
 			view.addView(imageLayout, 0);
 			return imageLayout;

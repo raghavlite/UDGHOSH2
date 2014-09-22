@@ -36,14 +36,16 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/log"
+        android:label="Udghosh"
         android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
         
          <activity
 			android:name=".Startup"
-			android:label="Spalash"
-			android:theme="@style/Theme.Sherlock.NoActionBar"
+			android:label="Udghosh"
+			 android:configChanges="orientation"
+            android:screenOrientation="portrait"
+			android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen"
 			 >
 			  <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -60,15 +62,42 @@
         
         <activity
             android:name="com.example.udghosh2.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+             android:configChanges="orientation"
+            android:screenOrientation="portrait" >
             
                 
          
         </activity>
         
+        
+        
+          <activity
+            android:name=".Schedule"
+            android:label="Schedule"
+             android:configChanges="orientation"
+            android:screenOrientation="portrait" >
+            
+                
+         
+        </activity>
+        
+               <activity
+            android:name=".Adven_sports"
+            android:label="Adventure Sports"
+             android:configChanges="orientation"
+            android:screenOrientation="portrait" >
+            
+                
+         
+        </activity>
+        
+        
            <activity
             android:name=".ImagePagerActivity"
-            android:label="Images" >
+            android:label="Images" 
+             android:configChanges="orientation"
+            android:screenOrientation="portrait">
             
                 
          
@@ -77,6 +106,8 @@
         <activity
             android:name=".PathGoogleMapActivity"
             android:label="Map"
+             android:configChanges="orientation"
+            android:screenOrientation="portrait"
             
             android:theme="@style/Theme.Styled" 
             android:uiOptions="splitActionBarWhenNarrow" >
@@ -86,6 +117,8 @@
             <activity
 			android:name=".HelloCardListActivity"
 			android:label="Hello Card List" 
+			 android:configChanges="orientation"
+            android:screenOrientation="portrait"
 			>            
             </activity>
             
@@ -94,6 +127,8 @@
              <activity
 			android:name=".notification"
 			android:label="Notifications"
+			 android:configChanges="orientation"
+            android:screenOrientation="portrait"
 			 >
              </activity>
         
@@ -104,6 +139,7 @@
             android:theme="@android:style/Theme.Black.NoTitleBar"
               android:configChanges="orientation"
             android:screenOrientation="portrait"
+            
             
             ></activity>
         
