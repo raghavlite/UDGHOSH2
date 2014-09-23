@@ -73,6 +73,15 @@ public class Startup extends Activity{
 		in=new Intent(getApplicationContext(), MainActivity.class);
 		 Spinner=(ProgressBar)findViewById(R.id.progressBar3);
 		 Spinner.setVisibility(View.VISIBLE);
+		 
+		 
+		 
+		 
+//		 startActivity(in);
+//			finish();
+		 
+		 
+		 
 		
 		if (checkPlayServices()) {
 		        // If this check succeeds, proceed with normal processing.
@@ -93,6 +102,7 @@ public class Startup extends Activity{
 				startActivity(in);
 				finish();
 				Log.d("Startup", "GP services not present");
+				return;
 				
 		 }
 		
@@ -370,6 +380,8 @@ public class Startup extends Activity{
 		
 		if(Check_ifserved())
 		{
+			
+			Log.v("raghav", "server already served");
 			startActivity(in);
 			finish();
 			

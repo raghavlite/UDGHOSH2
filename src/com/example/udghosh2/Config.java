@@ -7,10 +7,10 @@ public interface Config {
 	
 	public int Curr_Act=0;
 	// used to share GCM regId with application server - using php app server
-	static final String IMAGE_URL="http://10.42.0.1:8888";
-	static final String APP_SERVER_URL = "http://10.42.0.1:3000/register";
+	static final String IMAGE_URL="http://portal.udghosh.org:3000";
+	static final String APP_SERVER_URL = "http://portal.udghosh.org:4000/register";
      
-	static final String APP_GET_URL="http://10.42.0.1:8888/all";
+	static final String APP_GET_URL="http://portal.udghosh.org:3000/all";
 	public static final boolean DEVELOPER_MODE = false;
 	static final String NOTI_PREF="noti_pref";
 	static final String IMAGES="images_pager";

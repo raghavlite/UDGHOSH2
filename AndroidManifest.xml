@@ -81,7 +81,12 @@
                 
          
         </activity>
-        
+   
+          
+          
+          
+          
+          
                <activity
             android:name=".Adven_sports"
             android:label="Adventure Sports"
@@ -103,6 +108,21 @@
          
         </activity>
         
+           
+           
+                <activity
+            android:name=".Merchandise"
+            android:label="Merchandise"
+             android:configChanges="orientation"
+            android:screenOrientation="portrait" >
+            
+                
+         
+        </activity>
+        
+           
+           
+           
         <activity
             android:name=".PathGoogleMapActivity"
             android:label="Map"

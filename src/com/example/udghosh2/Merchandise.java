@@ -1,43 +1,46 @@
 package com.example.udghosh2;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.example.udghosh2.Schedule.contcs_adapter;
+import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
-public class Adven_sports extends SherlockActivity {
-
+public class Merchandise extends SherlockActivity{
+	
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-	
-	
-		setContentView(R.layout.item_pager_image);
+		setContentView(R.layout.merchandise);
 		
 		
-    	ImageView in=(ImageView)findViewById(R.id.image);
-    	
-    	
-    	
-    	
-    	in.setImageResource(R.drawable.adven_sp);
-    	
-//    	
-//MainActivity.imageLoader.displayImage("drawable://"+R.drawable.adven_sp, in, MainActivity.options, new SimpleImageLoadingListener() {
-//			
-//			});
+        	//ImageView in=(ImageView)findViewById(R.id.image);
+        	
+        	
+        	
+        	
+        	
+////MainActivity.imageLoader.displayImage("drawable://"+R.drawable.adven_sp, in, MainActivity.options, new SimpleImageLoadingListener() {
+				
+//				});
+        	
+        	
+        	
+        	
 	
+		  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	
-	
-	
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
-	
-	
 	
 	
 	 @Override
@@ -53,9 +56,7 @@ public class Adven_sports extends SherlockActivity {
 	        return super.onOptionsItemSelected(item);
 	    }
 
+	
+	
 
-	
-	
-	
-	
 }

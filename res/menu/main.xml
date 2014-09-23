@@ -9,10 +9,7 @@
         android:id="@+id/item2"
         android:icon="@drawable/schedule"
         android:title="Schedule"/>
-    <item
-        android:id="@+id/item3"
-        android:icon="@drawable/weather"
-        android:title="Weather"/>
+   
     <item
         android:id="@+id/item4"
         android:icon="@drawable/merchandise"

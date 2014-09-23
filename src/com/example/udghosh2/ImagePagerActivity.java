@@ -138,7 +138,7 @@ public class ImagePagerActivity extends SherlockActivity {
 	        int id = item.getItemId();
 	        if (id == android.R.id.home) {
 	        	
-	        save_image();
+	        onBackPressed();
 	        }
 	        
 	        

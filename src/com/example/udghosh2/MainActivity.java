@@ -233,10 +233,10 @@ ImageLoader.getInstance().init(config);
 
         sideNavigationView = (SideNavigationView) findViewById(R.id.side_navigation_view);
         ArrayList<Integer> a=new ArrayList<Integer>();
-        a.add(4);
-        a.add(7);
-        a.add(9);
-        a.add(14);
+        a.add(3);
+        a.add(6);
+        a.add(8);
+        a.add(13);
         
         
         sideNavigationView.setHeads(a);
@@ -378,14 +378,14 @@ ImageLoader.getInstance().init(config);
             	
                 break;
 
-            case R.id.item3:
-            	Toast.makeText(getApplicationContext(), "3", Toast.LENGTH_SHORT).show();
-                //invokeActivity(getString(R.string.title3), R.drawable.ic_android3);
-                break;
+          
 
             case R.id.item4:
             	Toast.makeText(getApplicationContext(), "4", Toast.LENGTH_SHORT).show();
                 
+            	Intent in4=new Intent(getApplicationContext(), Merchandise.class);
+            	startActivity(in4);
+            	
                 break;
 
             case R.id.item5:

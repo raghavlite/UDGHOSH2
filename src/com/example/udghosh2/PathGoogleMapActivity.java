@@ -164,6 +164,16 @@ public class PathGoogleMapActivity extends SherlockFragmentActivity {
 		googleMap = fm.getMap();
 		
 		
+		if(googleMap==null)
+		{
+			Toast.makeText(getApplicationContext(), "Install Google Maps ", Toast.LENGTH_SHORT).show();
+			
+			
+			
+			return;
+		}
+		
+		
 		googleMap.setMyLocationEnabled(true);
 		googleMap.isMyLocationEnabled();
 		
@@ -684,7 +694,16 @@ public void zoomer()
 	}
 	else
 	{
+		if(nwLocation!=null)
+		{
 		l=new LatLng(nwLocation.getLatitude(),nwLocation.getLongitude());
+		}
+		else
+		{
+			Toast.makeText(getApplicationContext(), "Couldn't find location", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
 		
 	}
 	

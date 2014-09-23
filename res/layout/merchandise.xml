@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout 
+    
+    
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E0EEEE"
+    >
+
+
+<ScrollView 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E0EEEE"
+    >
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E0EEEE"
+        android:orientation="vertical"
+        android:paddingLeft="9dp"
+        android:paddingRight="9dp"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ud_blacktshirt"
+            android:background="@drawable/image_back" />
+        
+         <TextView 
+        android:id="@+id/noti_date"
+        
+        android:textSize="17dp"
+        android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		
+		android:gravity="center_horizontal"
+		
+		android:paddingTop="4dp"
+		android:paddingBottom="5dp"
+		android:scrollHorizontally="false"
+	    android:text="Get more of our Merchandise at Enquotism Stall, OAT "
+		android:textColor="#6b6b6b"
+        android:background="@drawable/selector_card_background"
+        
+        
+        
+        
+        />
+
+         <ImageView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:src="@drawable/ud_whitetshirt"
+             android:background="@drawable/image_back"
+              />
+        
+    </LinearLayout>
+    
+    
+    
+</ScrollView>
+
+
+
+</LinearLayout>
