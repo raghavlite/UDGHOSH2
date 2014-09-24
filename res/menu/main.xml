@@ -62,19 +62,8 @@
           android:title="Contacts"
         /> 
        
-         <item android:id="@+id/item14"
-          android:icon="@drawable/sponsor"
-          android:title="Sponsors"
-        /> 
+      
         
-          <item android:id="@+id/item15"
-          android:icon="@drawable/ic_launcher"
-          android:title="SETTINGS"
-        />
-         
-          <item android:id="@+id/item16"
-          android:icon="@drawable/settings"
-          android:title="Settings"
-        />
+  
         
 </menu>

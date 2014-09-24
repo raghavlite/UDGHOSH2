@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="10dp"
-   
+   android:background="#E0EEEE"
    
     >
 
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center|top"
-        android:adjustViewBounds="true"
+       
        
         android:contentDescription="@string/descr_image"
         android:background="@drawable/image_back"
@@ -71,7 +71,9 @@
         android:layout_height="wrap_content"
        android:paddingTop="3dp"
        android:paddingLeft="8dp"
-       
+       android:text="FunZone also presents lots of adventure sports like Paintball,
+Zorbing, Body Zorbing, Wall climbing, Trampoline and lots more.
+Register yourself at Fun zone desk New Sac"
         android:gravity="left"
         android:scrollHorizontally="false"
         android:textColor="#616161"
