@@ -8,7 +8,7 @@ import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
-import com.example.udghosh2.R;
+
 import com.sharespirit.adapters.CardInflater;
 
 public class FoodCourts extends SherlockActivity {

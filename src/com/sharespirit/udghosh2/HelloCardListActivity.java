@@ -1,6 +1,6 @@
 package com.sharespirit.udghosh2;
 
-import com.example.udghosh2.R;
+
 import com.sharespirit.adapters.CardInflater;
 
 import android.app.Activity;

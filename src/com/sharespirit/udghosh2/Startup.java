@@ -239,36 +239,36 @@ public class Startup extends Activity{
 			Log.d("Startup", "Since gcm id present in SP cheking for server storage");
 			if(Check_ifserved())
 			{
-				Log.d("Startup", "Server stored already starting main activity");
-				startActivity(in);
-				finish();
+//				Log.d("Startup", "Server stored already starting main activity");
+//				startActivity(in);
+//				finish();
 				
 				
 				
-//				new Handler().postDelayed(new Runnable() {
-//					 
-//		            /*
-//		             * Showing splash screen with a timer. This will be useful when you
-//		             * want to show case your app logo / company
-//		             */
-//		 
-//		            @Override
-//		            public void run() {
-//		                // This method will be executed once the timer is over
-//		                // Start your app main activity
-//		              
-//		            
-//		            	Intent i = new Intent(Startup.this, MainActivity.class);
-//		            	
-//		            	//player.stop();
-//		                startActivity(i);
-//		 
-//		               // overridePendingTransition(R.anim.fadein,R.anim.fadeout);
-//		                
-//		                // close this activity
-//		                finish();
-//		            }
-//		        }, 1000);
+				new Handler().postDelayed(new Runnable() {
+					 
+		            /*
+		             * Showing splash screen with a timer. This will be useful when you
+		             * want to show case your app logo / company
+		             */
+		 
+		            @Override
+		            public void run() {
+		                // This method will be executed once the timer is over
+		                // Start your app main activity
+		              
+		            
+		            	Intent i = new Intent(Startup.this, MainActivity.class);
+		            	
+		            	//player.stop();
+		                startActivity(i);
+		 
+		               // overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+		                
+		                // close this activity
+		                finish();
+		            }
+		        }, 1500);
 				
 				
 				

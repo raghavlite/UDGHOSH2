@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sharespirit.udghosh2"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="3"
+    android:versionName="1.5" >
 
     <uses-sdk
         android:minSdkVersion="9"
@@ -38,7 +38,9 @@
         android:allowBackup="true"
         android:icon="@drawable/log"
         android:label="Udghosh"
-        android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
+        android:theme="@style/Theme.Sherlock.Light.DarkActionBar" 
+        
+        >
         
          <activity
 			android:name="com.sharespirit.udghosh2.Startup"
@@ -177,7 +179,7 @@
        
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyB5XZ8ffcx1IPMUgT9ptEsNZUKCeoVZ-Cw" />
+            android:value="AIzaSyD6ICmjCkBPA1LuTci7Jh_vOHmEWPZ8EzI" />
         
         <meta-data 
             android:name="com.google.android.gms.version" 

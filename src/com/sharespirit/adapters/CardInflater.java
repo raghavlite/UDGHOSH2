@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-import com.example.udghosh2.R;
 
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -14,6 +13,7 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import com.sharespirit.udghosh2.BaseInflaterAdapter;
 import com.sharespirit.udghosh2.IAdapterViewInflater;
 import com.sharespirit.udghosh2.MainActivity;
+import com.sharespirit.udghosh2.R;
 
 import android.graphics.Bitmap;
 import android.util.Log;

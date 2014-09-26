@@ -13,7 +13,6 @@ import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.example.udghosh2.R;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 public class GCMNotificationIntentService extends IntentService {

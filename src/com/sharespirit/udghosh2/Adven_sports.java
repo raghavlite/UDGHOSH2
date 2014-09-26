@@ -5,7 +5,7 @@ import android.widget.ImageView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
-import com.example.udghosh2.R;
+
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class Adven_sports extends SherlockActivity {

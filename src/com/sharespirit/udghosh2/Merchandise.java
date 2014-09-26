@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
 
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
@@ -43,6 +44,7 @@ public class Merchandise extends SherlockActivity{
 	}
 	
 	
+	
 	 @Override
 	    public boolean onOptionsItemSelected(MenuItem item) {
 	        // Handle action bar item clicks here. The action bar will
@@ -55,6 +57,9 @@ public class Merchandise extends SherlockActivity{
 	        }
 	        return super.onOptionsItemSelected(item);
 	    }
+
+
+
 
 	
 	

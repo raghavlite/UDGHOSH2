@@ -8,10 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-import com.example.udghosh2.R;
+
 import com.sharespirit.udghosh2.BaseInflaterAdapter;
 import com.sharespirit.udghosh2.CardItemData;
 import com.sharespirit.udghosh2.IAdapterViewInflater;
+import com.sharespirit.udghosh2.R;
 
 public class carder2 implements IAdapterViewInflater<CardItemData>{
 

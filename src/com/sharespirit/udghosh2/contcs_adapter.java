@@ -1,8 +1,6 @@
 package com.sharespirit.udghosh2;
 
 
-import com.example.udghosh2.R;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

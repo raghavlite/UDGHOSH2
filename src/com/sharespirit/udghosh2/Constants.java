@@ -15,7 +15,6 @@
  *******************************************************************************/
 package com.sharespirit.udghosh2;
 
-import com.example.udghosh2.R;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)

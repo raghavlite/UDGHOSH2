@@ -6,7 +6,6 @@ package com.sharespirit.udghosh2;
 import org.w3c.dom.Text;
 
 import com.actionbarsherlock.app.SherlockActivity;
-import com.example.udghosh2.R;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
